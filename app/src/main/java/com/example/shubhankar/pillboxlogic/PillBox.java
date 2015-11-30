@@ -139,7 +139,7 @@ public class PillBox {
 
         //see if date is same, if not, find difference
         try {
-            lastRead = dateFormat.parse("2015-11-26");
+            lastRead = dateFormat.parse("2015-11-28");
             now = dateFormat.parse(dateFormat.format(now));
         } catch (ParseException e) {
             e.printStackTrace();
@@ -175,8 +175,11 @@ public class PillBox {
     public static String[] makeDayData(String[] dayArray, String data) {
         String[] finalData = dayArray.clone();
         Log.d("Before evaluation", "" + data);
+        //store data in a char array for easy access
         char[] dataArray = data.toCharArray();
         for (int i = 0; i < data.length(); i++) {
+
+            //if pill was scheduled, look whether it was taken or not
             if (dayArray[i].equalsIgnoreCase("null")) {
 
                 //if it is first slot, dont check early pill
@@ -230,10 +233,11 @@ public class PillBox {
                         finalData[i] = "-1";
                     }
                 }
-            } else {
+            }
+            //if no pill is schedules
+            else {
                 finalData[i] = "0";
             }
-
         }
         Log.d("Remaining char array", Arrays.toString(dataArray));
         Log.d("After evaluation", Arrays.toString(finalData));
